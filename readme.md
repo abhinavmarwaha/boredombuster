@@ -6,12 +6,12 @@
 
 # Movie
 
-Popular
-Top Rates
-Add lists
+* Popular
+* Top Rates
+* Add lists
 
 # Tv Shows
 
-Popular
-Top Rated
-Add Lists
+* Popular
+* Top Rated
+* Add Lists
