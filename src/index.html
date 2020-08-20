@@ -8,10 +8,82 @@
     <title>Bordem Buster</title>
   </head>
   <body>
-    <header class="header">
-      <h1>Home</h1>
-    </header>
-    <div id="movies"></div>
+    <div id="displayVideo"></div>
+    <input type="checkbox" name="moviesCheckbox" id="moviesCheckbox">
+    <label for="moviesCheckbox">Movies (TMDB</label>
+    <input type="checkbox" name="tvshowsCheckbox" id="tvshowsCheckbox">
+    <label for="tvshowsCheckbox">Tv Shows (TMDB)</label>
+    <input type="checkbox" name="animeCheckbox" id="animeCheckbox">
+    <label for="animeCheckbox">Anime (MAL)</label>
+    <input type="checkbox" name="mangaCheckbox" id="mangaCheckbox">
+    <label for="mangaCheckbox">Manga (MAL)</label>
+    <input type="checkbox" name="musicCheckbox" id="musicCheckbox">
+    <label for="musicCheckbox">Music (Spotify)</label>
+    <br>
+    <br><br>
+
+    <div id="moviesForm" style="display:none">
+        <h1>Movies</h1>
+        <input type="checkbox" name="moviesTop" id="moviesTop">
+        <label for="moviesCheck">Top Rated</label>
+        <input type="checkbox" name="moviesPopular" id="moviesPopular">
+        <label for="moviesPopular">Popular</label>
+        
+        <div id="moviesList">
+            <!-- <div id="movieListHead1">
+                <input type="text" name="moviesList1" id="moviesList1" placeholder="TMDB list url">
+                <button id="moviesListNeg1" name="moviesList1">-</button>
+            </div> -->
+        </div>
+        <button id="moviesListAdd" name="moviesListAdd">+</button>
+    </div>
+
+    <div id="tvshowsForm" style="display:none">
+        <h1>Tv Shows</h1>
+        <input type="checkbox" name="tvshowsTop" id="tvshowsTop">
+        <label for="tvshowsCheck">Top Rated</label>
+        <input type="checkbox" name="tvshowsPopular" id="tvshowsPopular">
+        <label for="tvshowsPopular">Popular</label>
+        
+        <div id="tvshowsList">
+            <!-- <div id="tvshowsListHead1">
+                <input type="text" name="tvshowsList1" id="tvshowsList1" placeholder="TMDB list url">
+                <button id="tvshowsListNeg1" name="tvshowsList1">-</button>
+            </div> -->
+        </div>
+        <button id="tvshowsListAdd" name="tvshowsListAdd">+</button>
+    </div>
+
+    <div id="animeForm" style="display:none">
+        <h1>Anime</h1>
+        <input type="checkbox" name="animeTop" id="animeTop">
+        <label for="animeTop">Top</label>
+        
+        <div id="animeList">
+            <!-- <div id="animeListHead1">
+                <input type="text" name="animeList1" id="animeList1" placeholder="MAL profile link">
+                <button id="animeListNeg1" name="animeList1">-</button>
+            </div> -->
+        </div>
+        <button id="animeListAdd" name="animeListAdd">+</button>
+    </div>
+
+    <div id="mangaForm" style="display:none">
+        <h1>Manga</h1>
+        <input type="checkbox" name="mangaTop" id="mangaTop">
+        <label for="mangaTop">Top</label>
+        
+        <div id="mangaList">
+            <!-- <div id="mangaListHead1">
+                <input type="text" name="managaList1" id="mangaList1" placeholder="MAL profile link">
+                <button id="mangaListNeg1" name="mangaList1">-</button>
+            </div> -->
+        </div>
+        <button id="mangaListAdd" name="mangaListAdd">+</button>
+    </div>
+
+    <button class="recommendCheckbox" id="recommendCheckbox">Recommend</button>
+
     <script crossorigin src="https://unpkg.com/@andriymiz/themoviedb@latest/dist/the-movie-db.umd.js"></script>
-  </body>
+</body>
 </html>

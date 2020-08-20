@@ -30,19 +30,6 @@ body {
   }
 }
 
-.example {
-  display: flex;
-  justify-content: center;
-
-  &-style,
-  &-lazy-load {
-    margin: 3rem 2rem;
-  }
-}
-
-.from-scss {
-  color: #0096FF;
-}
 
 .link {
   color: #61dafb;
@@ -50,9 +37,38 @@ body {
   margin-top: 3rem;
 }
 
-#lazy-load {
-  padding: 1rem 1.5rem;
-  border: 0;
-  border-radius: 10rem;
-  outline: none;
+
+.poster {
+  max-width: 300px;
+  height: auto;
+  float: left;
+  
+}
+
+.heading {
+  float: left;
+  margin-left: 1em;
+}
+
+.summaryHead {
+  margin-left: 1em;
+  overflow-wrap: break-word;
+  padding-top: 3rem;
+}
+
+.info {
+  float: left;
+}
+
+.summary {
+  float: left;
+}
+
+.form {
+  float: left;
+}
+
+.youtube {
+  margin-right: auto;
+  margin-left: auto;
 }
