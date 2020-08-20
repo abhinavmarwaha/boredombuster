@@ -12,7 +12,8 @@ html {
 }
 
 body {
-  margin: 0;
+  width: 50%;
+  margin: auto;
   padding: 0;
   background-color: #282c34;
   color: #fff;
@@ -71,4 +72,9 @@ body {
 .youtube {
   margin-right: auto;
   margin-left: auto;
+}
+
+#displayVideo {
+  position: relative;
+  float: left;
 }

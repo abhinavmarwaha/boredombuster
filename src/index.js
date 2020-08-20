@@ -1,6 +1,4 @@
 import './styles/style.scss';
-// import TheMovieDB from '@andriymiz/themoviedb';
-// const TheMovieDB = require('themoviedb');
 import jikanjs from 'jikanjs';
 
 const YoutubeBase = "https://www.youtube.com/embed/";
@@ -12,7 +10,7 @@ tmdb.v3_account = {id:1};
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 const globalTop50 = '1KNl4AYfgZtOVm9KHkhPTF'
-spotifyApi.setAccessToken('bbe36777ff7c4470acb561be66b91154');
+spotifyApi.setAccessToken('d18d97752c454bfa81a34826f29bc8e6');
 
 const displayVideoBlock = document.getElementById("displayVideo");
 let displayVideoString = "";
@@ -22,6 +20,7 @@ let movieListCount = 0;
 let tvshowsListCount = 0;
 let animeListCount = 0;
 let mangaListCount = 0;
+let musicListCount = 0;
 
 function randNo(maxLimit) {
     return Math.floor(Math.random() * maxLimit); // TODO random Function
@@ -88,7 +87,7 @@ function addMangaList(){
 
     div.innerHTML += '<div id="mangaListHead'+mangaListCount+'"><input type="text" name="mangaList'+mangaListCount+'" id="mangaList'+mangaListCount+'" placeholder="MAL Profile"><button id="mangaListNeg'+mangaListCount+'" name="mangaList'+mangaListCount+'">-</button></div>'
 
-    document.getElementById('mangaListNeg' + mangaListCount).onclick = () => removeAnimeList(animeListCount);
+    document.getElementById('mangaListNeg' + mangaListCount).onclick = () => removeMangaList(mangaListCount);
 }
 
 function removeMangaList(id){
@@ -96,48 +95,83 @@ function removeMangaList(id){
     --mangaListCount;
 }
 
+function addMusicList(){
+    let div = document.getElementById("musicList");
+    ++musicListCount;
+
+    div.innerHTML += '<div id="musicListHead'+musicListCount+'"><input type="text" name="musicList'+musicListCount+'" id="musicList'+musicListCount+'" placeholder="Spotify Playlist Link"><button id="musicListNeg'+musicListCount+'" name="musicList'+musicListCount+'">-</button></div>'
+
+    document.getElementById('musicListNeg' + musicListCount).onclick = () => removeMusicList(animeListCount);
+}
+
+function removeMusicList(id){
+    document.getElementById("musicListHead" + id).remove();
+    --musicListCount;
+}
+
 function recommend(){
-    
-    let paramsCount = 0;
 
-    const movies = document.getElementById("moviesCheckbox").value;
-    if(movies) paramsCount++;
+    let slots = {};
+    let paramsCount = -1;
 
-    const tvshows = document.getElementById("tvshowsCheckbox").value;
-    if(tvshows) paramsCount++;
+    const movies = document.getElementById("moviesCheckbox").checked;
+    if(movies) slots[++paramsCount] = 0;
+
+    const tvshows = document.getElementById("tvshowsCheckbox").checked;
+    if(tvshows) slots[++paramsCount] = 1;
+
+    const anime = document.getElementById("animeCheckbox").checked;
+    if(anime) slots[++paramsCount] = 2;
+
+    const manga = document.getElementById("mangaCheckbox").checked;
+    if(manga) slots[++paramsCount] = 3;
+
+    const music = document.getElementById("musicCheckbox").checked;
+    if(music) slots[++paramsCount] = 4;
 
     let rand = randNo(paramsCount);
 
-    if(!movies&&tvshows) rand = 1;
-
-    if(rand==0){
+    if(slots[rand]==0){
+        console.log("recommending Movies.....");
         recommendMovies();
     }
-    else if(rand==1){
+    else if(slots[rand]==1){
+        console.log("recommending Tv shows.....");
         recommendtvshows();
     }
-    else if(rand==2){
+    else if(slots[rand]==2){
+        console.log("recommending Anime.....");
         recommendAnime();
     }
-    else if(rand==3){
+    else if(slots[rand]==3){
+        console.log("recommending Manga.....");
         recommendManga();
     }
-    else if(rand==4){
+    else if(slots[rand]==4){
+        console.log("recommending Music.....");
         recommendMusic();
     }
 
 }
 
 function recommendMovies(){
-    console.log("recommending Movies.....")
-    let top = document.getElementById("moviesTop").value;
-    let pop = document.getElementById("moviesPopular").value;
-    let childs = document.getElementById("moviesList").children; // TODO randomize selction
-    let randLis = randNo(2 + childs.length);
 
-    if(childs.length!=0)randLis=2;
+    let slots = {};
+    let paramsCount = -1;
 
-    if(randLis==0){
+    let top = document.getElementById("moviesTop").checked;
+    if(top) slots[++paramsCount] = 0;
+
+    let pop = document.getElementById("moviesPopular").checked;
+    if(pop) slots[++paramsCount] = 1;
+
+    let childs = document.getElementById("moviesList").children; 
+    if(childs.length!=0) slots[++paramsCount] = 2
+
+    let rand = randNo(paramsCount);
+
+
+    if(slots[rand]==0){
 
         tmdb.getConfiguration()
             .then(configs => {
@@ -184,7 +218,7 @@ function recommendMovies(){
 
     }
 
-    else if (randLis==1){
+    else if (slots[rand]==1){
 
         tmdb.getConfiguration()
         .then(configs => {
@@ -231,15 +265,15 @@ function recommendMovies(){
 
     }
 
-    else if(randLis>1){
+    else if(slots[rand]==2){
 
-        randLis -= 2;
-        let listSelect = childs[randLis].children[0].value;
+        const rand = randNo(childs.length);
+        let listSelect = childs[rand].children[0].value;
 
         tmdb.getConfiguration()
         .then(configs => {
             tmdb.getList(listSelect.slice(listSelect.lastIndexOf('/')+1))
-            .then(data => data.results.forEach(element => {
+            .then(data => data.items.forEach(element => {
                 let item = {};
                 item.id = element.id;
                 item.poster = element.poster_path;
@@ -283,14 +317,22 @@ function recommendMovies(){
 }
 
 function recommendtvshows(){
-    
-    console.log("recommending Tv shows.....")
-    let top = document.getElementById("tvshowsTop").value;
-    let pop = document.getElementById("tvshowsPopular").value;
-    let childs = document.getElementById("tvshowsList").children;
-    let randLis = randNo(2 + childs.length);
 
-    if(randLis==0){
+    let slots = {};
+    let paramsCount = -1;
+
+    let top = document.getElementById("tvshowsTop").checked;
+    if(top) slots[++paramsCount] = 0;
+
+    let pop = document.getElementById("tvshowsPopular").checked;
+    if(pop) slots[++paramsCount] = 1;
+
+    let childs = document.getElementById("tvshowsList").children; 
+    if(childs.length!=0) slots[++paramsCount] = 2
+
+    let rand = randNo(paramsCount);
+
+    if(slots[rand]==0){
 
         tmdb.getConfiguration()
             .then(configs => {
@@ -337,7 +379,7 @@ function recommendtvshows(){
 
     }
 
-    else if (randLis==1){
+    else if (slots[rand]==1){
 
         tmdb.getConfiguration()
         .then(configs => {
@@ -384,15 +426,15 @@ function recommendtvshows(){
 
     }
 
-    else if(randLis>1){
+    else if(slots[rand]==2){
 
-        randLis -= 2;
-        let listSelect = childs[randLis].children[0].value;
+        const rand = randNo(childs.length);
+        let listSelect = childs[rand].children[0].value;
 
         tmdb.getConfiguration()
         .then(configs => {
-            tmdb.getList(listLink.slice(listSelect.lastIndexOf('/')))
-            .then(data => data.results.forEach(element => {
+            tmdb.getList(listSelect.slice(listSelect.lastIndexOf('/')+1))
+            .then(data => data.items.forEach(element => {
                 let item = {};
                 item.id = element.id;
                 item.poster = element.poster_path;
@@ -436,11 +478,19 @@ function recommendtvshows(){
 }
 
 function recommendAnime(){
-    let top = document.getElementById("animetop").value
-    let childs = document.getElementById("animeList").children;
-    let randLis = randNo(1 + childs.length);
 
-    if(randLis==0){
+    let slots = {};
+    let paramsCount = -1;
+
+    let top = document.getElementById("animeTop").checked;
+    if(top) slots[++paramsCount] = 0;
+
+    let childs = document.getElementById("animeList").children; 
+    if(childs.length!=0) slots[++paramsCount] = 1;
+
+    let rand = randNo(paramsCount);
+
+    if(slots[rand]==0){
         jikanjs.loadTop('anime').then(
             (response)=>{
               response.top.forEach((element)=>{
@@ -469,13 +519,11 @@ function recommendAnime(){
                 displayVideoString += '<h4> Rating:'+items[selection].rating+'</h4>';
                 // displayVideoString += '<h2  class="summaryHead">Summary</h2>';
                 // displayVideoString += '<p class="summary-data">'+items[selection].summary+'</p>';
-                displayVideoString += '<a href= '+IMDBbase + items[selection].mal_url+'>MAL</a>'
-                if(data.results[0].site=='YouTube'){
-                    displayVideoString += '<iframe class="youtube" width="560" height="315" src="'+data.promo.video_url+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                }
+                displayVideoString += '<a href= '+ items[selection].mal_url+'>MAL</a>'
+                displayVideoString += '<iframe class="youtube" width="560" height="315" src="'+data.promo.video_url+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
                 displayVideoString += '</div>';
                 items = [];
-                document.getElementById("display").innerHTML = displayVideoString;
+                displayVideoBlock.innerHTML = displayVideoString;
             })
             
           })
@@ -484,10 +532,14 @@ function recommendAnime(){
           });
     }
 
-    else if(randLis==1){
-        randLis -= 1;
-        let listSelect = childs[randNo(randLis)].children[0].value;
-        jikanjs.loadUser(listSelect.slice(listSelect.lastIndexOf('/')), 'animelist').then((data)=>{
+    else if(slots[rand]==1){
+
+        console.log("recommending from User");
+
+        const rand = randNo(childs.length);
+        let listSelect = childs[rand].children[0].value;
+
+        jikanjs.loadUser(listSelect, 'animelist').then((data)=>{
             data.anime.forEach((element)=>{
             let item = {};
                 item.id = element.mal_id;
@@ -502,23 +554,25 @@ function recommendAnime(){
         })
         .then(()=>{
             let selection = randNo(items.length);
-            displayVideoString = "";
-            displayVideoString += '<img src="';
-            displayVideoString += items[selection].poster;
-            displayVideoString += '" class="poster" alt="'+items[selection].title+'">';
+            jikanjs.loadAnime(items[selection].id, 'videos').then((data)=>{
+                displayVideoString = "";
+                displayVideoString += '<img src="';
+                displayVideoString += items[selection].poster;
+                displayVideoString += '" class="poster" alt="'+items[selection].title+'">';
 
-            displayVideoString += '<div class="info">';
-            displayVideoString += '<h1 class="heading">'+items[selection].title+'</h1>';
-            displayVideoString += '<h4> Rating:'+items[selection].rating+'</h4>';
-            // displayVideoString += '<h2  class="summaryHead">Summary</h2>';
-            // displayVideoString += '<p class="summary-data">'+items[selection].summary+'</p>';
-            displayVideoString += '<a href= '+IMDBbase + items[selection].mal_url+'>MAL</a>'
-            if(data.results[0].site=='YouTube'){
+                displayVideoString += '<div class="info">';
+                displayVideoString += '<h1 class="heading">'+items[selection].title+'</h1>';
+                displayVideoString += '<h4> Rating:'+items[selection].rating+'</h4>';
+                // displayVideoString += '<h2  class="summaryHead">Summary</h2>';
+                // displayVideoString += '<p class="summary-data">'+items[selection].summary+'</p>';
+                displayVideoString += '<a href= '+items[selection].mal_url+'>MAL</a>'
                 displayVideoString += '<iframe class="youtube" width="560" height="315" src="'+data.promo.video_url+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-            }
-            displayVideoString += '</div>';
-            items = [];
-            displayVideoBlock.innerHTML = displayVideoString;
+                
+                displayVideoString += '</div>';
+                items = [];
+                displayVideoBlock.innerHTML = displayVideoString;
+            });
+            
         });
 
     
@@ -528,11 +582,18 @@ function recommendAnime(){
 
 function recommendManga(){
 
-    let top = document.getElementById("mangatop").value
-    let childs = document.getElementById("mangaList").children;
-    let randLis = randNo(1 + childs.length);
+    let slots = {};
+    let paramsCount = -1;
 
-    if(randLis==0){
+    let top = document.getElementById("mangaTop").checked;
+    if(top) slots[++paramsCount] = 0;
+
+    let childs = document.getElementById("mangaList").children; 
+    if(childs.length!=0) slots[++paramsCount] = 1;
+
+    let rand = randNo(paramsCount);
+
+    if(slots[rand]==0){
         jikanjs.loadTop('manga').then(
             (response)=>{
               response.top.forEach((element)=>{
@@ -560,9 +621,9 @@ function recommendManga(){
             // displayVideoString += '<h2  class="summaryHead">Summary</h2>';
             // displayVideoString += '<p class="summary-data">'+items[selection].summary+'</p>';
             displayVideoString += '<a href= '+items[selection].mal_url+'>MAL</a>'
-            if(data.results[0].site=='YouTube'){
-                displayVideoString += '<iframe class="youtube" width="560" height="315" src="'+data.promo.video_url+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-            }
+            // if(data.results[0].site=='YouTube'){
+            //     displayVideoString += '<iframe class="youtube" width="560" height="315" src="'+data.promo.video_url+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+            // }
             displayVideoString += '</div>';
             items = [];
             displayVideoBlock.innerHTML = displayVideoString;
@@ -572,10 +633,11 @@ function recommendManga(){
             console.error(err);
           });
     }
-    else if(randLis==1){
-        randLis -= 1;
-        let listLink = childs[randNo(randLis)].children[0].value;
-        jikanjs.loadUser(listLink, 'mangalist').then((data)=>{
+    else if(slots[rand]==1){
+        console.log("Recommending from User");
+        const rand = randNo(childs.length);
+        let listSelect = childs[rand].children[0].value;
+        jikanjs.loadUser(listSelect, 'mangalist').then((data)=>{
           data.manga.forEach((element)=>{
             let item = {};
               item.id = element.mal_id;
@@ -601,9 +663,9 @@ function recommendManga(){
             // displayVideoString += '<h2  class="summaryHead">Summary</h2>';
             // displayVideoString += '<p class="summary-data">'+items[selection].summary+'</p>';
             displayVideoString += '<a href= '+items[selection].mal_url+'>MAL</a>'
-            if(data.results[0].site=='YouTube'){
-                displayVideoString += '<iframe class="youtube" width="560" height="315" src="'+data.promo.video_url+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-            }
+            // if(data.results[0].site=='YouTube'){
+            //     displayVideoString += '<iframe class="youtube" width="560" height="315" src="'+data.promo.video_url+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+            // }
             displayVideoString += '</div>';
             items = [];
             displayVideoBlock.innerHTML = displayVideoString;
@@ -613,13 +675,20 @@ function recommendManga(){
 
 
 function recommendMusic(){
-    
-    let top = document.getElementById("musictop").value
-    let childs = document.getElementById("musicList").children;
-    let randLis = randNo(1 + childs.length);
 
-    if(randLis==0){
-      SpotifyWebApi.getPlaylistTracks(globalTop50, function (err, data){
+    let slots = {};
+    let paramsCount = -1;
+
+    let top = document.getElementById("musicTop").checked;
+    if(top) slots[++paramsCount] = 0;
+
+    let childs = document.getElementById("musicList").children; 
+    if(childs.length!=0) slots[++paramsCount] = 2
+
+    let rand = randNo(paramsCount);
+
+    if(slots[rand]==0){
+      spotifyApi.getPlaylistTracks(globalTop50, function (err, data){
         if(err) console.error(err);
         data.items.forEach((element)=>{
 
@@ -652,9 +721,9 @@ function recommendMusic(){
             // displayVideoString += '<h2  class="summaryHead">Summary</h2>';
             // displayVideoString += '<p class="summary-data">'+items[selection].summary+'</p>';
             displayVideoString += '<a href= '+items[selection].url+'>Spotify</a>'
-            if(data.results[0].site=='YouTube'){
-                displayVideoString += '<iframe class="youtube" width="560" height="315" src="'+data.promo.video_url+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-            }
+            // if(data.results[0].site=='YouTube'){
+            //     displayVideoString += '<iframe class="youtube" width="560" height="315" src="'+data.promo.video_url+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+            // }
             displayVideoString += '</div>';
             items = [];
             displayVideoBlock.innerHTML = displayVideoString;
@@ -664,11 +733,11 @@ function recommendMusic(){
 
     }
 
-    else if(randLis==1){
-      randLis -= 1;
-      let listLink = childs[randNo(randLis)].children[0].value;
-      const id = listLink.slice(listLink.lastIndexOf('/'));
-      SpotifyWebApi.getPlaylistTracks(id, function (err, data){
+    else if(slots[rand]==1){
+      const rand = randNo(childs.length);
+      let listSelect = childs[rand].children[0].value;
+      const id = listSelect.slice(listSelect.lastIndexOf('/')+1);
+      spotifyApi.getPlaylistTracks(id, function (err, data){
         if(err) console.error(err);
         data.items.forEach((element)=>{
 
@@ -719,13 +788,14 @@ document.getElementById("moviesCheckbox").onclick = () => displayCheck("moviesCh
 document.getElementById("tvshowsCheckbox").onclick = () => displayCheck("tvshowsCheckbox","tvshowsForm");;
 document.getElementById("animeCheckbox").onclick = () =>  displayCheck("animeCheckbox","animeForm");
 document.getElementById("mangaCheckbox").onclick = () =>  displayCheck("mangaCheckbox","mangaForm");
+document.getElementById("musicCheckbox").onclick = () =>  displayCheck("musicCheckbox","musicForm");
 
 
 document.getElementById("moviesListAdd").onclick = addMovieList;
 document.getElementById("tvshowsListAdd").onclick = addTvshowsList;
 document.getElementById("animeListAdd").onclick = addAnimeList;
-document.getElementById("mangaListAdd").onclick = addMa;
-
+document.getElementById("mangaListAdd").onclick = addMangaList;
+document.getElementById("musicListAdd").onclick = addMusicList;
 
 
 
