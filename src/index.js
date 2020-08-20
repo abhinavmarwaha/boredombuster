@@ -1,5 +1,6 @@
 import './styles/style.scss';
 import jikanjs from 'jikanjs';
+// const axios = require('axios').default;
 
 const YoutubeBase = "https://www.youtube.com/embed/";
 
@@ -10,7 +11,7 @@ tmdb.v3_account = {id:1};
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 const globalTop50 = '1KNl4AYfgZtOVm9KHkhPTF'
-spotifyApi.setAccessToken('d18d97752c454bfa81a34826f29bc8e6');
+
 
 const displayVideoBlock = document.getElementById("displayVideo");
 let displayVideoString = "";
@@ -25,6 +26,85 @@ let musicListCount = 0;
 function randNo(maxLimit) {
     return Math.floor(Math.random() * maxLimit); // TODO random Function
 }  
+
+// spotifyToken();
+
+// async function spotifyToken() {
+
+//     const token = sessionStorage.getItem("spotifyToken");
+
+//     if(!token){
+//         // axios({
+//         //     method: 'post',
+//         //     url: 'https://accounts.spotify.com/api/token',
+//         //     data: {
+//         //      grant_type: 'authorization_code',
+//         //      client_secret: 'd18d97752c454bfa81a34826f29bc8e6',
+//         //      client_id: 'bbe36777ff7c4470acb561be66b91154'
+//         //     }
+//         //   });
+
+//         // axios.post('https://accounts.spotify.com/api/token', {
+//         //     grant_type: 'authorization_code',
+//         //     client_secret: 'd18d97752c454bfa81a34826f29bc8e6',
+//         //     client_id: 'bbe36777ff7c4470acb561be66b91154',
+//         //   })
+//         //   .then(function (response) {
+//         //     console.log(response);
+//         //   })
+//         //   .catch(function (error) {
+//         //     console.log(error);
+//         //   });
+
+        
+//         // let response1 = await fetch('https://accounts.spotify.com/authorize?grant_type=authorization_code&response_type=code&redirect_uri=localhost:3000&client_id=bbe36777ff7c4470acb561be66b91154', {
+//         //     method: 'GET',
+//         //     // body: JSON.stringify({
+//         //     //     "grant_type":    "authorization_code",
+//         //     //     "response_type": "code",
+//         //     //     "redirect_uri": "localhost:3000",
+//         //     //     "client_id": 'bbe36777ff7c4470acb561be66b91154',
+//         //     //   }),
+//         //     // headers: {
+//         //     //     'Content-type': 'application/json; charset=UTF-8'
+//         //     // }
+//         //   });
+//         // ?grant_type=client_credentials&client_id=bbe36777ff7c4470acb561be66b91154&client_secret=d18d97752c454bfa81a34826f29bc8e6
+//         let response1 = await fetch('https://accounts.spotify.com/authorize', {
+//         method: 'POST',
+//         body: JSON.stringify({
+//             "grant_type":    "client_credentials",
+//             "client_id": 'bbe36777ff7c4470acb561be66b91154',
+//             "client_secret": 'd18d97752c454bfa81a34826f29bc8e6',
+//           }),
+//         // headers: {
+//         //     'Content-type': 'application/json; charset=UTF-8'
+//         // }
+//         });
+        
+//         console.log(response1);
+
+//         let response2 = await fetch('https://accounts.spotify.com/api/token', {
+//             method: 'POST',
+//             body: JSON.stringify({
+//                 "redirect_uri": "localhost:3000",
+//                 "grant_type":    "authorization_code",
+//                 "code": response1.code,
+//                 "client_secret": 'd18d97752c454bfa81a34826f29bc8e6',
+//                 "client_id":     'bbe36777ff7c4470acb561be66b91154',
+//               }),
+//             headers: {
+//                 'Content-type': 'application/json; charset=UTF-8'
+//             }
+//           });
+//           console.log(response2);
+
+//     }
+
+//     else {
+//         spotifyApi.setAccessToken(token);
+//     }
+// }
 
 
 function displayCheck(check, form) {
@@ -126,8 +206,8 @@ function recommend(){
     const manga = document.getElementById("mangaCheckbox").checked;
     if(manga) slots[++paramsCount] = 3;
 
-    const music = document.getElementById("musicCheckbox").checked;
-    if(music) slots[++paramsCount] = 4;
+    // const music = document.getElementById("musicCheckbox").checked;
+    // if(music) slots[++paramsCount] = 4;
 
     let rand = randNo(paramsCount);
 
@@ -788,14 +868,14 @@ document.getElementById("moviesCheckbox").onclick = () => displayCheck("moviesCh
 document.getElementById("tvshowsCheckbox").onclick = () => displayCheck("tvshowsCheckbox","tvshowsForm");;
 document.getElementById("animeCheckbox").onclick = () =>  displayCheck("animeCheckbox","animeForm");
 document.getElementById("mangaCheckbox").onclick = () =>  displayCheck("mangaCheckbox","mangaForm");
-document.getElementById("musicCheckbox").onclick = () =>  displayCheck("musicCheckbox","musicForm");
+// document.getElementById("musicCheckbox").onclick = () =>  displayCheck("musicCheckbox","musicForm");
 
 
 document.getElementById("moviesListAdd").onclick = addMovieList;
 document.getElementById("tvshowsListAdd").onclick = addTvshowsList;
 document.getElementById("animeListAdd").onclick = addAnimeList;
 document.getElementById("mangaListAdd").onclick = addMangaList;
-document.getElementById("musicListAdd").onclick = addMusicList;
+// document.getElementById("musicListAdd").onclick = addMusicList;
 
 
 
