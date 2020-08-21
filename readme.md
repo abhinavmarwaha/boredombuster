@@ -1,17 +1,30 @@
-# Params
+# Boredom Buster
 
-* Movies
-* Tv shows
-* Songs
+Suggests Movies, Tv Shows, Anime, Manga.
 
-# Movie
+# Features
 
-* Popular
-* Top Rates
-* Add lists
+## Movies, Tv Shows from TMDB
 
-# Tv Shows
-
-* Popular
 * Top Rated
-* Add Lists
+* Popular
+* Lists
+
+## Anime, Manga from MAL
+
+* Top rated
+* from MAL profile
+
+# Issues
+
+* Lists negative not working.
+* little bit padding and all (UI).
+
+# Todo
+
+(Roadmap)[https://github.com/abhinavmarwaha/boredombuster/projects/2]
+
+# License
+
+
+
