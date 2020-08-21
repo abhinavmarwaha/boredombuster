@@ -158,7 +158,7 @@ function addAnimeList(){
     let div = document.getElementById("animeList");
     ++animeListCount;
 
-    div.innerHTML += '<div id="animeListHead'+animeListCount+'"><input type="text" name="animeList'+animeListCount+'" id="animeList'+tvshowsListCount+'" placeholder="MAL Profile"><button class="btn btn-small" id="animeListNeg'+animeListCount+'" name="animeList'+animeListCount+'">-</button></div>'
+    div.innerHTML += '<div id="animeListHead'+animeListCount+'"><input type="text" name="animeList'+animeListCount+'" id="animeList'+tvshowsListCount+'" placeholder="MAL username"><button class="btn btn-small" id="animeListNeg'+animeListCount+'" name="animeList'+animeListCount+'">-</button></div>'
 
     document.getElementById('animeListNeg' + animeListCount).onclick = () => removeAnimeList(animeListCount);
 }
@@ -172,7 +172,7 @@ function addMangaList(){
     let div = document.getElementById("mangaList");
     ++mangaListCount;
 
-    div.innerHTML += '<div id="mangaListHead'+mangaListCount+'"><input type="text" name="mangaList'+mangaListCount+'" id="mangaList'+mangaListCount+'" placeholder="MAL Profile"><button class="btn btn-small" id="mangaListNeg'+mangaListCount+'" name="mangaList'+mangaListCount+'">-</button></div>'
+    div.innerHTML += '<div id="mangaListHead'+mangaListCount+'"><input type="text" name="mangaList'+mangaListCount+'" id="mangaList'+mangaListCount+'" placeholder="MAL username"><button class="btn btn-small" id="mangaListNeg'+mangaListCount+'" name="mangaList'+mangaListCount+'">-</button></div>'
 
     document.getElementById('mangaListNeg' + mangaListCount).onclick = () => removeMangaList(mangaListCount);
 }
