@@ -1,103 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <title>Bordem Buster</title>
-  </head>
-  <body>
-    <div id="displayVideo"></div>
-    <input type="checkbox" name="moviesCheckbox" id="moviesCheckbox">
-    <label for="moviesCheckbox">Movies (TMDB</label>
-    <input type="checkbox" name="tvshowsCheckbox" id="tvshowsCheckbox">
-    <label for="tvshowsCheckbox">Tv Shows (TMDB)</label>
-    <input type="checkbox" name="animeCheckbox" id="animeCheckbox">
-    <label for="animeCheckbox">Anime (MAL)</label>
-    <input type="checkbox" name="mangaCheckbox" id="mangaCheckbox">
-    <label for="mangaCheckbox">Manga (MAL)</label>
-    <!-- <input type="checkbox" name="musicCheckbox" id="musicCheckbox">
+        <title>Bordem Buster</title>
+    </head>
+    <body>
+        <div id="displayVideo">
+            <!-- 
+        <img src="" class="poster" alt="+items[selection].title+">
+        <div class="info">
+        <h1 class="heading">+items[selection].title+</h1>
+        <h4> Rating:+items[selection].rating+</h4>
+        <h2  class="summaryHead">Summary</h2>
+        <p class="summary-data">+items[selection].summary+</p>
+        <a href= +IMDBbase + items[selection].imdb+>IMDB</a>
+        <iframe class="youtube" width="560" height="315" src="+YoutubeBase +  data.results[0].key+" frameborder="0" allow="accelerometer autoplay encrypted-media gyroscope picture-in-picture" allowfullscreen></iframe>
+        </div> -->
+        </div>
+        <div class="section group">
+            <div class="col span_1_of_4">
+                <input type="checkbox" name="moviesCheckbox"
+                    id="moviesCheckbox">
+                <label for="moviesCheckbox">Movies (TMDB)</label>
+            </div>
+            <div class="col span_2_of_4">
+                <input type="checkbox" name="tvshowsCheckbox"
+                    id="tvshowsCheckbox">
+                <label for="tvshowsCheckbox">Tv Shows (TMDB)</label>
+            </div>
+            <div class="col span_3_of_4">
+                <input type="checkbox" name="animeCheckbox" id="animeCheckbox">
+                <label for="animeCheckbox">Anime (MAL)</label>
+            </div>
+            <div class="col span_4_of_4">
+                <input type="checkbox" name="mangaCheckbox" id="mangaCheckbox">
+                <label for="mangaCheckbox">Manga (MAL)</label>
+            </div>
+        </div>
+        <!-- <input type="checkbox" name="musicCheckbox" id="musicCheckbox">
     <label for="musicCheckbox">Music (Spotify)</label> -->
-    <br>
-    <br><br>
+        <br><br>
 
-    <div id="moviesForm" style="display:none">
-        <h1>Movies</h1>
-        <input type="checkbox" name="moviesTop" id="moviesTop">
-        <label for="moviesCheck">Top Rated</label>
-        <input type="checkbox" name="moviesPopular" id="moviesPopular">
-        <label for="moviesPopular">Popular</label>
-        
-        <div id="moviesList">
-            <!-- <div id="movieListHead1">
+        <div id="moviesForm" style="display:none">
+            <h1>Movies</h1>
+            <input type="checkbox" name="moviesTop" id="moviesTop">
+            <label for="moviesCheck">Top Rated</label>
+            <input type="checkbox" name="moviesPopular" id="moviesPopular">
+            <label for="moviesPopular">Popular</label>
+            <br><br>
+            <div id="moviesList">
+                <!-- <div id="movieListHead1">
                 <input type="text" name="moviesList1" id="moviesList1" placeholder="TMDB list url">
                 <button id="moviesListNeg1" name="moviesList1">-</button>
             </div> -->
+            </div>
+            <button id="moviesListAdd" name="moviesListAdd" class="btn btn-long">Add List</button>
         </div>
-        <button id="moviesListAdd" name="moviesListAdd">+</button>
-    </div>
 
-    <div id="tvshowsForm" style="display:none">
-        <h1>Tv Shows</h1>
-        <input type="checkbox" name="tvshowsTop" id="tvshowsTop">
-        <label for="tvshowsCheck">Top Rated</label>
-        <input type="checkbox" name="tvshowsPopular" id="tvshowsPopular">
-        <label for="tvshowsPopular">Popular</label>
-        
-        <div id="tvshowsList">
-            <!-- <div id="tvshowsListHead1">
+        <div id="tvshowsForm" style="display:none">
+            <h1>Tv Shows</h1>
+            <input type="checkbox" name="tvshowsTop" id="tvshowsTop">
+            <label for="tvshowsCheck">Top Rated</label>
+            <input type="checkbox" name="tvshowsPopular" id="tvshowsPopular">
+            <label for="tvshowsPopular">Popular</label>
+            <br><br>
+            <div id="tvshowsList">
+                <!-- <div id="tvshowsListHead1">
                 <input type="text" name="tvshowsList1" id="tvshowsList1" placeholder="TMDB list url">
                 <button id="tvshowsListNeg1" name="tvshowsList1">-</button>
             </div> -->
+            </div>
+            <button id="tvshowsListAdd" name="tvshowsListAdd" class="btn btn-long">Add List</button>
         </div>
-        <button id="tvshowsListAdd" name="tvshowsListAdd">+</button>
-    </div>
 
-    <div id="animeForm" style="display:none">
-        <h1>Anime</h1>
-        <input type="checkbox" name="animeTop" id="animeTop">
-        <label for="animeTop">Top</label>
-        
-        <div id="animeList">
-            <!-- <div id="animeListHead1">
+        <div id="animeForm" style="display:none">
+            <h1>Anime</h1>
+            <input type="checkbox" name="animeTop" id="animeTop">
+            <label for="animeTop">Top</label>
+            <br><br>
+            <div id="animeList">
+                <!-- <div id="animeListHead1">
                 <input type="text" name="animeList1" id="animeList1" placeholder="MAL profile link">
                 <button id="animeListNeg1" name="animeList1">-</button>
             </div> -->
+            </div>
+            <button id="animeListAdd" name="animeListAdd" class="btn btn-long">Add MAL profile</button>
         </div>
-        <button id="animeListAdd" name="animeListAdd">+</button>
-    </div>
 
-    <div id="mangaForm" style="display:none">
-        <h1>Manga</h1>
-        <input type="checkbox" name="mangaTop" id="mangaTop">
-        <label for="mangaTop">Top</label>
-        
-        <div id="mangaList">
-            <!-- <div id="mangaListHead1">
+        <div id="mangaForm" style="display:none">
+            <h1>Manga</h1>
+            <input type="checkbox" name="mangaTop" id="mangaTop">
+            <label for="mangaTop">Top</label>
+            <br><br>
+            <div id="mangaList">
+                <!-- <div id="mangaListHead1">
                 <input type="text" name="managaList1" id="mangaList1" placeholder="MAL profile link">
                 <button id="mangaListNeg1" name="mangaList1">-</button>
             </div> -->
+            </div>
+            <button id="mangaListAdd" name="mangaListAdd" class="btn btn-long">Add MAL Profile</button>
         </div>
-        <button id="mangaListAdd" name="mangaListAdd">+</button>
-    </div>
 
-    <div id="musicForm" style="display:none">
-        <h1>Music</h1>
-        <input type="checkbox" name="musicTop" id="musicTop">
-        <label for="musicTop">Top</label>
-        
-        <div id="musicList">
-            <!-- <div id="musicListHead1">
+        <!-- <div id="musicForm" style="display:none">
+            <h1>Music</h1>
+            <input type="checkbox" name="musicTop" id="musicTop">
+            <label for="musicTop">Top</label>
+            <br><br>
+            <div id="musicList"> -->
+                <!-- <div id="musicListHead1">
                 <input type="text" name="musicList1" id="musicList1" placeholder="Spotify Playlist Link">
                 <button id="musicListNeg1" name="musicList1">-</button>
             </div> -->
-        </div>
-        <button id="musicListAdd" name="musicListAdd">+</button>
-    </div>
+            <!-- </div>
+            <button id="musicListAdd" name="musicListAdd" class="btn btn-long">Add Link</button>
+        </div> -->
 
-    <button class="recommendCheckbox" id="recommendCheckbox">Recommend</button>
-    <!-- hey <a href="https://accounts.spotify.com/authorize?grant_type=authorization_code&response_type=code&redirect_uri=localhost:3000&client_id=bbe36777ff7c4470acb561be66b91154" class="spotifySignIn" id="spotifySignIn"><button>Spotify Sign In</button></a> -->
-    <script crossorigin src="https://unpkg.com/@andriymiz/themoviedb@latest/dist/the-movie-db.umd.js"></script>
-</body>
+        <button class="recommendCheckbox btn btn-long" id="recommendCheckbox">Recommend</button>
+        <!-- hey <a href="https://accounts.spotify.com/authorize?grant_type=authorization_code&response_type=code&redirect_uri=localhost:3000&client_id=bbe36777ff7c4470acb561be66b91154" class="spotifySignIn" id="spotifySignIn"><button>Spotify Sign In</button></a> -->
+        <script crossorigin
+            src="https://unpkg.com/@andriymiz/themoviedb@latest/dist/the-movie-db.umd.js"></script>
+    </body>
 </html>
