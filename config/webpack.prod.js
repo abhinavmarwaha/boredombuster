@@ -7,6 +7,7 @@ const TerserJSPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const BrotliPlugin = require("brotli-webpack-plugin");
 const PurgecssPlugin = require('purgecss-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const glob = require("glob");
 
 module.exports = {
@@ -102,5 +103,6 @@ module.exports = {
       algorithm: "gzip"
     }),
     new BrotliPlugin(),
+    new FaviconsWebpackPlugin()
   ]
 };
