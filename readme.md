@@ -15,16 +15,10 @@ Suggests Movies, Tv Shows, Anime, Manga.
 * Top rated
 * from MAL profile
 
-# Issues
-
-* Lists negative not working.
-* little bit padding and all (UI).
-
 # Todo
 
-(Roadmap)[https://github.com/abhinavmarwaha/boredombuster/projects/1]
+[Roadmap](https://github.com/abhinavmarwaha/boredombuster/projects/1)
 
-# License
 
 
 
