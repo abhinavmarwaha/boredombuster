@@ -22,7 +22,7 @@ Suggests Movies, Tv Shows, Anime, Manga.
 
 # Todo
 
-(Roadmap)[https://github.com/abhinavmarwaha/boredombuster/projects/2]
+(Roadmap)[https://github.com/abhinavmarwaha/boredombuster/projects/1]
 
 # License
 
